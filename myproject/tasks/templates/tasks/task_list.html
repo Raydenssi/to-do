@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block title %}Crear Tarea{% endblock %} {% block content %}
+<div class="container mx-auto mt-10">
+    <div class="bg-custom-white p-8 rounded-md shadow-2xl">
+        <div class="flex justify-between items-center mb-6">
+            <h1>Lista de Tareas</h1>
+            <a href="{% url 'create-task' %}"
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                Agregar Tarea
+            </a>
+        </div>
+        <table class="min-w-full table-auto bg-gray-190">
+            <thead>
+                <tr class="container">
+                    <th>
+                        Tarea
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th>
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="text-base divide-y divide-gray-300">
+                {% for task in tasks %}
+                <tr>
+                    <td class="py-2 px-6 text-center">
+                        {{ task.titulo }}
+                    </td>
+                    <td class="py-2 px-6 text-center break-words whitespace-normal max-w-[200px]">
+                        {{ task.descripcion }}
+                    </td>
+                    <td class="py-2 px-6 text-center display: flex; justify-content: space-between;">
+                        <span
+                            class="px-3 py-1 text-white rounded {% if task.status == 'completed' %}bg-green-500{% else %}bg-yellow-500{% endif %}">
+                            {{ task.get_estado_display }}
+                        </span>
+                    </td>
+                    <td class="py-2 px-6 text-center">
+                        <a href="{% url 'task-edit' task.id %}"
+                            class="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-300 transition-colors mr-2">Editar</a>
+                        <a href="{% url 'task-delete' task.id %}"
+                            class="px-3 py-1 bg-red-400 text-white rounded hover:bg-red-500 transition-colors">Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="py-2 px-6 text-center">
+                        No se encontraron tareas
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

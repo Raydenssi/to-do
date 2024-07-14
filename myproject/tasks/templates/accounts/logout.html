@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block title %}Cerrar Sesión{% endblock %} {% block content %}
+<body>
+    <h1>Cerrar Sesión</h1>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Cerrar Sesión</button>
+    </form>
+    <a href="{% url 'task-list' %}">Cancelar</a>
+</body>
+{% endblock %}

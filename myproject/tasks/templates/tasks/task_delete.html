@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}Crear Tarea{% endblock %} {% block content %}
+<body>
+    <h1>Eliminar Tarea</h1>
+    <p>¿Está seguro de que quiere eliminar la tarea "{{ task.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sí, eliminar</button>
+    </form>
+    <a href="{% url 'task-list' %}">No, regresar</a>
+</body>
+{% endblock %}
